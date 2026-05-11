@@ -9,10 +9,17 @@ export class TaskService {
     { id: 2, title: 'Construire la TodoList', done: false, createdAt: new Date() }
   ];
 
+  private history: Task[] = [];
+
   private tasksSubject = new BehaviorSubject<Task[]>(this.tasks);
+  private historySubject = new BehaviorSubject<Task[]>(this.history);
 
   getTasks(): Observable<Task[]> {
     return this.tasksSubject.asObservable();
+  }
+
+  getHistory(): Observable<Task[]> {
+    return this.historySubject.asObservable();
   }
 
   addTask(title: string): void {
@@ -29,18 +36,33 @@ export class TaskService {
 
   toggleTask(id: number): void {
     this.tasks = this.tasks.map(t =>
-      t.id === id ? { ...t, done: !t.done } : t
+      t.id === id ? { ...t, done: !t.done, completedAt: !t.done ? new Date() : undefined } : t
     );
     this.tasksSubject.next(this.tasks);
   }
 
   deleteTask(id: number): void {
+    const task = this.tasks.find(t => t.id === id);
+    if (task?.done) {
+      this.history = [{ ...task, completedAt: task.completedAt ?? new Date() }, ...this.history];
+      this.historySubject.next(this.history);
+    }
     this.tasks = this.tasks.filter(t => t.id !== id);
     this.tasksSubject.next(this.tasks);
   }
 
   clearDone(): void {
+    const done = this.tasks.filter(t => t.done).map(t => ({
+      ...t, completedAt: t.completedAt ?? new Date()
+    }));
+    this.history = [...done, ...this.history];
+    this.historySubject.next(this.history);
     this.tasks = this.tasks.filter(t => !t.done);
     this.tasksSubject.next(this.tasks);
+  }
+
+  clearHistory(): void {
+    this.history = [];
+    this.historySubject.next(this.history);
   }
 }

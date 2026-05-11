@@ -29,4 +29,28 @@
     <span class="remaining">{{ remaining$ | async }} tâche(s) restante(s)</span>
     <button class="clear-btn" (click)="onClearDone()">Effacer les terminées</button>
   </div>
+
+  <!-- Historique -->
+  @if (history$ | async; as history) {
+    @if (history.length > 0) {
+      <div class="historique">
+        <div class="historique-header" (click)="showHistory = !showHistory">
+          <span>🕓 Historique ({{ history.length }})</span>
+          <span class="chevron">{{ showHistory ? '▲' : '▼' }}</span>
+        </div>
+
+        @if (showHistory) {
+          <ul class="historique-list">
+            @for (task of history; track task.id) {
+              <li class="historique-item">
+                <span class="historique-titre">✓ {{ task.title }}</span>
+                <small class="historique-date">Terminée le {{ task.completedAt | date:'dd/MM/yyyy à HH:mm' }}</small>
+              </li>
+            }
+          </ul>
+          <button class="clear-history-btn" (click)="onClearHistory()">Vider l'historique</button>
+        }
+      </div>
+    }
+  }
 </div>

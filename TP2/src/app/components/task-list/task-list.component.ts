@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { TaskService } from '../../services/task.service';
 import { Task } from '../../models/task.model';
 import { TaskItemComponent } from '../task-item/task-item.component';
@@ -10,7 +10,7 @@ type Filter = 'all' | 'active' | 'done';
 
 @Component({
   selector: 'app-task-list',
-  imports: [AsyncPipe, TaskItemComponent, TaskFormComponent],
+  imports: [AsyncPipe, DatePipe, TaskItemComponent, TaskFormComponent],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
@@ -35,10 +35,15 @@ export class TaskListComponent {
     map(tasks => tasks.filter(t => !t.done).length)
   );
 
+  history$ = this.taskService.getHistory();
+
+  showHistory = false;
+
   setFilter(f: Filter) { this.filterSubject.next(f); }
 
-  onAdd(title: string)    { this.taskService.addTask(title); }
-  onToggle(id: number)    { this.taskService.toggleTask(id); }
-  onDelete(id: number)    { this.taskService.deleteTask(id); }
-  onClearDone()           { this.taskService.clearDone(); }
+  onAdd(title: string)  { this.taskService.addTask(title); }
+  onToggle(id: number)  { this.taskService.toggleTask(id); }
+  onDelete(id: number)  { this.taskService.deleteTask(id); }
+  onClearDone()         { this.taskService.clearDone(); }
+  onClearHistory()      { this.taskService.clearHistory(); }
 }
