@@ -35,6 +35,14 @@ export class TaskListComponent {
     map(tasks => tasks.filter(t => !t.done).length)
   );
 
+  total$: Observable<number> = this.taskService.getTasks().pipe(
+    map(tasks => tasks.length)
+  );
+
+  done$: Observable<number> = this.taskService.getTasks().pipe(
+    map(tasks => tasks.filter(t => t.done).length)
+  );
+
   history$ = this.taskService.getHistory();
 
   showHistory = false;

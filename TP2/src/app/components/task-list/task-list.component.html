@@ -1,6 +1,21 @@
 <div class="container">
   <h1>📝 Ma TodoList</h1>
 
+  <div class="compteurs">
+    <div class="compteur total">
+      <span class="compteur-valeur">{{ total$ | async }}</span>
+      <span class="compteur-label">Total</span>
+    </div>
+    <div class="compteur actives">
+      <span class="compteur-valeur">{{ remaining$ | async }}</span>
+      <span class="compteur-label">Actives</span>
+    </div>
+    <div class="compteur terminees">
+      <span class="compteur-valeur">{{ done$ | async }}</span>
+      <span class="compteur-label">Terminées</span>
+    </div>
+  </div>
+
   <app-task-form (add)="onAdd($event)"></app-task-form>
 
   <div class="filters">
