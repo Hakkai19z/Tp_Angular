@@ -1,0 +1,117 @@
+.carte-meteo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px;
+  border-radius: 24px;
+  width: 360px;
+  color: #fff;
+  transition: background 0.5s ease;
+}
+
+.carte-meteo.soleil {
+  background: linear-gradient(135deg, #f7971e, #ffd200);
+  box-shadow: 0 8px 32px rgba(247, 151, 30, 0.4);
+}
+.carte-meteo.nuageux {
+  background: linear-gradient(135deg, #4b6cb7, #182848);
+  box-shadow: 0 8px 32px rgba(75, 108, 183, 0.4);
+}
+.carte-meteo.pluie {
+  background: linear-gradient(135deg, #373b44, #4286f4);
+  box-shadow: 0 8px 32px rgba(66, 134, 244, 0.4);
+}
+.carte-meteo.orage {
+  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+  box-shadow: 0 8px 32px rgba(48, 43, 99, 0.6);
+}
+.carte-meteo.neige {
+  background: linear-gradient(135deg, #83a4d4, #b6fbff);
+  box-shadow: 0 8px 32px rgba(131, 164, 212, 0.4);
+  color: #1a1a2e;
+}
+
+.villes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-ville {
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.1);
+  color: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-ville:hover,
+.btn-ville.actif {
+  background: rgba(255,255,255,0.35);
+}
+
+.entete {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.nom-ville {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.pays {
+  margin: 4px 0 0;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
+
+.icone {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.temperature {
+  margin: 0;
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.condition-label {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.8;
+  text-transform: capitalize;
+}
+
+.details {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.15);
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.detail-icone { font-size: 1.2rem; }
+
+.detail-valeur {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+}

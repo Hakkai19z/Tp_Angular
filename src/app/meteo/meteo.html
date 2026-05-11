@@ -1,0 +1,51 @@
+<div class="carte-meteo" [class]="ville().condition">
+
+  <div class="villes">
+    @for (v of villes; track v.nom; let i = $index) {
+      <button
+        class="btn-ville"
+        [class.actif]="i === villes.indexOf(ville())"
+        (click)="selectionnerVille(i)">
+        {{ v.nom }}
+      </button>
+    }
+  </div>
+
+  <div class="entete">
+    <div>
+      <h2 class="nom-ville">{{ ville().nom }}</h2>
+      <p class="pays">{{ ville().pays }}</p>
+    </div>
+    <div class="icone">
+      @switch (ville().condition) {
+        @case ('soleil') { ☀️ }
+        @case ('nuageux') { ⛅ }
+        @case ('pluie') { 🌧️ }
+        @case ('orage') { ⛈️ }
+        @case ('neige') { ❄️ }
+      }
+    </div>
+  </div>
+
+  <p class="temperature">{{ ville().temperature }}°C</p>
+  <p class="condition-label">{{ ville().condition | titlecase }}</p>
+
+  <div class="details">
+    <div class="detail">
+      <span class="detail-icone">🌡️</span>
+      <span class="detail-valeur">{{ ville().ressenti }}°C</span>
+      <span class="detail-label">Ressenti</span>
+    </div>
+    <div class="detail">
+      <span class="detail-icone">💧</span>
+      <span class="detail-valeur">{{ ville().humidite }}%</span>
+      <span class="detail-label">Humidité</span>
+    </div>
+    <div class="detail">
+      <span class="detail-icone">💨</span>
+      <span class="detail-valeur">{{ ville().vent }} km/h</span>
+      <span class="detail-label">Vent</span>
+    </div>
+  </div>
+
+</div>
